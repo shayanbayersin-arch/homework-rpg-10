@@ -14,7 +14,12 @@ public class GuildHall implements GuildMediator {
 
     @Override
     public void register(GuildMember member) {
-        // TODO: add the member to the topic lists it should receive.
+        if (member instanceof Captain) addSubscriber("COMMAND", member);
+        if (member instanceof Scout) addSubscriber("REPORTS", member);
+        if (member instanceof Healer) addSubscriber("MEDICAL", member);
+        if (member instanceof Quartermaster) addSubscriber("SUPPLIES", member);
+        // Капитан также слушает отчеты
+        if (member instanceof Captain) addSubscriber("REPORTS", member);
     }
 
     @Override

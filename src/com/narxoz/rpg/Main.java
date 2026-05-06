@@ -1,20 +1,29 @@
 package com.narxoz.rpg;
 
-/**
- * Entry point for Homework 10 — The Adventurers' Guild: Iterator + Mediator.
- *
- * The scaffold prints the banner only; students fill in the guild demo.
- */
-public class Main {
+import com.narxoz.rpg.combatant.Hero;
+import com.narxoz.rpg.council.*;
+import com.narxoz.rpg.guild.*;
+import com.narxoz.rpg.quest.*;
+import java.util.List;
 
+public class Main {
     public static void main(String[] args) {
         System.out.println("=== Homework 10 Demo: Iterator + Mediator ===");
 
-        // 1. Create at least 2 heroes.
-        // 2. Build a QuestLog with at least 5 quests of mixed priority.
-        // 3. Register at least 4 GuildMembers (Quartermaster, Scout, Healer, Captain) on the GuildHall.
-        // 4. Iterate the quest log with at least 2 different QuestIterator implementations.
-        // 5. Dispatch coordinating messages through the mediator during quest planning.
-        // 6. Run the CouncilEngine and print a final CouncilRunResult.
+        QuestLog log = new QuestLog();
+        log.add(new Quest("Rat Problem", QuestPriority.LOW, 10, false));
+        log.add(new Quest("Dragon Hunt", QuestPriority.URGENT, 1000, true));
+        log.add(new Quest("Border Patrol", QuestPriority.HIGH, 200, true));
+
+        GuildHall hall = new GuildHall();
+        new Captain("Valerius", hall);
+        new Scout("Nyx", hall);
+        new Healer("Mercy", hall);
+        new Quartermaster("Haggard", hall);
+
+        CouncilEngine engine = new CouncilEngine();
+        CouncilRunResult result = engine.runCouncil(List.of(new Hero("Geralt", 100, 15, 10)), log, hall);
+
+        System.out.println("\nFinal Result: " + result);
     }
 }

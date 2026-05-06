@@ -16,6 +16,6 @@ public class Scout extends GuildMember {
 
     @Override
     public void receive(String topic, GuildMember from, String payload) {
-        // TODO: react to a guild-hall message without calling another colleague directly.
+        System.out.println("[Scout " + getName() + "] Recon focus: " + payload);
     }
 }
